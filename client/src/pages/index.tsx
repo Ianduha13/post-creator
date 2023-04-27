@@ -1,24 +1,15 @@
-import {gql, useQuery } from "@apollo/client"
-
-const GET_USERS = gql`
-  query GetUsers {
-    users {
-      id
-      name
-      email
-    }
-  }
-`
+import Header from "@/components/Header";
+import UserList from "@/components/UserList";
+import PostList from "@/components/PostList";
 
 export default function Home() {
-  const {loading, error, data} = useQuery(GET_USERS)
-  
-  console.log(data);
   return (
-    <main className="w-screen h-screen bg-gradient-to-br from-orange-300 to bg-lime-200">
-      <section>
-        My app
-      </section>
+    <main className="w-screen h-screen bg-gradient-to-br from-indigo-700
+     to bg-indigo-200 flex flex-col items-center">
+
+        <Header/>
+        <PostList/>
+        <UserList/>
     </main>
   )
 }

@@ -8,7 +8,18 @@ export const GET_POSTS = gql`
     title,
     subtitle
     user {
-      id
+      name
+    }
+    description
+    }
+  }`
+export const GET_POST = gql`
+  query GetPost($id: ID!) {
+    post(id: $id) {
+    title,
+    subtitle
+    user {
+      name
     }
     description
     }

@@ -1,0 +1,15 @@
+{
+  "name": "post-creator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com-Ianduha13:Ianduha13/post-creator.git",
+  "author": "Ianduha13 <ianduhamelhayes@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently \"cd client && yarn dev\" \"cd api && yarn dev\""
+
+  },
+  "dependencies": {
+    "concurrently": "^8.0.1"
+  }
+}
