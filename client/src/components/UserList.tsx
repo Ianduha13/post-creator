@@ -1,3 +1,4 @@
+"use client"
 import { GET_USERS, GET_USER } from "@/lib/queries/userQueries";
 import { useQuery } from "@apollo/client";
 import { FaUser } from "react-icons/fa";

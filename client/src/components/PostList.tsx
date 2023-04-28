@@ -37,12 +37,12 @@ if (loading)
 						className='bg-indigo-400 relative text-white h-80 rounded-md shadow-md p-4'
 					>
 						<DeletePostButton postId={post.id}/>
-						<h2 className='text-xl font-semibold my-4'>{post.title}</h2>
+						<h2 className='text-xl font-semibold mt-8 mb-2'>{post.title}</h2>
 						<p className='text-white-600'>{post.subtitle}</p>
 						<p className='text-gray-200 my-2 h-24 overflow-hidden'>
 							{post.description}
 						</p>
-						<p className='text-white truncate absolute bottom-0 mb-4'>
+						<p className='text-white font-bold truncate absolute bottom-0 mb-4'>
 							{post.user.name}
 						</p>
 					</div>
