@@ -116,6 +116,15 @@ const mutation = new GraphQLObjectType({
 				return post.save()
 			},
 		},
+		deletePost: {
+			type: PostType,
+			args: {
+				id: { type: new GraphQLNonNull(GraphQLID) },
+			},
+			resolve(parent, args) {
+				return Post.findByIdAndDelete(args.id)
+			},
+		},
 	},
 })
 module.exports = new GraphQLSchema({

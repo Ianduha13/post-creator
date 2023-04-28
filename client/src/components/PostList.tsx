@@ -1,27 +1,14 @@
-import { useQuery, useMutation } from "@apollo/client"
-import { ADD_POST } from "@/lib/mutations/postMutations"
+import { useQuery } from "@apollo/client"
 import { GET_POSTS } from "@/lib/queries/postQueries"
 import { Post } from "@/lib/types/types"
-import Link from "next/link"
+import PostModal from "./PostModal"
 import { useState } from "react"
+import DeletePostButton from "./DeletePostButton"
 
 const PostList = () => {
 	const { loading, error, data } = useQuery(GET_POSTS)
-	const [title, setTitle] = useState('')
-	const [subtitle, setSubtitle] = useState('')
-	const [description, setDescription] = useState('')
-	const [userId, setUserId] = useState('')
-
-	const [addPost] = useMutation(ADD_POST, {  variables: { title, subtitle, description, userId },
-    update(cache, { data: { addPost } }) {
-      const { posts } = cache.readQuery({ query: GET_POSTS });
-      cache.writeQuery({
-        query: GET_CLIENTS,
-        data: { clients: [...posts, addPost] },
-      });
-    },
-  });
-	if (loading)
+	const [isPostModalVisible, setIsPostModalVisible] = useState(false)
+if (loading)
 		return (
 			<div className='w-1/2 grow grid grid-cols-3 gap-8 text-white'>
 				<div className='bg-indigo-400 relative text-white h-80 rounded-md shadow-md p-4'>
@@ -35,17 +22,21 @@ const PostList = () => {
 	if (error) {
 		throw new Error(error.message)
 	}
-	console.log(data.posts)
-	console.log(data)
+	console.log(data.posts);
 	return (
 		<>
-			<section className=' w-1/2 grow grid grid-cols-3 gap-8'>
+			<PostModal
+				isPostModalVisible={isPostModalVisible}
+				setIsPostModalVisible={setIsPostModalVisible}
+			/>
+			<button className="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-md hover:brightness-105" onClick={() => setIsPostModalVisible(true)}>Add a Post</button>
+			<section className=' w-1/2 grow grid grid-cols-3 gap-8 my-8'>
 				{data.posts.map((post: Post) => (
-					<Link
-						href={`/post/${post.id}`}
+					<div
 						key={post.id}
 						className='bg-indigo-400 relative text-white h-80 rounded-md shadow-md p-4'
 					>
+						<DeletePostButton postId={post.id}/>
 						<h2 className='text-xl font-semibold my-4'>{post.title}</h2>
 						<p className='text-white-600'>{post.subtitle}</p>
 						<p className='text-gray-200 my-2 h-24 overflow-hidden'>
@@ -54,7 +45,7 @@ const PostList = () => {
 						<p className='text-white truncate absolute bottom-0 mb-4'>
 							{post.user.name}
 						</p>
-					</Link>
+					</div>
 				))}
 			</section>
 		</>
